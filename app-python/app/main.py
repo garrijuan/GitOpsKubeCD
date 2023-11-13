@@ -3,6 +3,7 @@ from fastapi import FastAPI
 # Crear una instancia de la aplicación FastAPI
 app = FastAPI()
 
+log.info("Creating application...")
 # Definir una ruta para la raíz de la aplicación
 @app.get("/")
 def read_root():
