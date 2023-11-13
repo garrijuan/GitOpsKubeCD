@@ -20,4 +20,4 @@ jobs:
 
       - name: Run tests
         run: |
-          python3 -m unittest test_main.py
+          python3 -m unittest app-python.app.test_main.py
