@@ -7,12 +7,19 @@ uvicorn main:app --reload
 ```sh
 python3 test_main.py
 
-python3 -m unittest test_main.py
+python3 -m unittest appPython/test/test_main.py #desde el raiz
 ```
 
-generar archivo de dependencias
+## generar archivo de dependencias
+```sh
 pip freeze > requirements.txt
+```
 
-fastapi==0.68.0
-uvicorn==0.15.0
-requests==2.26.0
+## construir imagen llamando al dockerfile
+```sh
+docker build -t test_api_python .
+
+docker run -d -p 80:80 test_api_python #levantar imagen  docker
+
+curl http://localhost:80
+```
