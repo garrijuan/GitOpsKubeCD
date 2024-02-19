@@ -1,3 +1,12 @@
+puntos:
+app basica API REST con Python(FASTAPI)
+test basico Responde 200 con pytest
+worflow github actions commit con test ok
+dockerfile para generar imagen docker y correr en local
+workflow github action automatizar generacion imagen y repositado en dockerhub
+comprobar que levanta imagen desde dockerhub y App Working
+
+
 ## correr app en local
 ```sh
 uvicorn main:app --reload
@@ -25,4 +34,6 @@ curl http://localhost:80
 
 docker run -d -p 80:80 garrijuan/test_api_python:latest
 ```
+
+
 
