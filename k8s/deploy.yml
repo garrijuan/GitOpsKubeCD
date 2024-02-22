@@ -1,0 +1,49 @@
+# Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appPython
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: appPython
+  template:
+    metadata:
+      labels:
+        app: appPython
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 3000
+        fsGroup: 2000    
+      restartPolicy: Always
+      containers:
+      - name: appPython
+        image:  garrijuan/test_api_python:latest 
+        #env:
+        #- name: TOPO_PORT
+         # value: "8181"
+        ports:
+        - containerPort: 80
+  replicas: 1
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: appPython
+  labels:
+    app: appPython
+spec:
+  selector:
+    app: appPython
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+    name: appPython-port
+  type: ClusterIP

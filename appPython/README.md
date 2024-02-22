@@ -36,4 +36,9 @@ docker run -d -p 80:80 garrijuan/test_api_python:latest
 ```
 
 
+minikube start
+
+minikube addons enable ingress
+
+
 
