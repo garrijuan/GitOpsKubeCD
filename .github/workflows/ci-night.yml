@@ -1,11 +1,8 @@
 name: CI NIGHT
 
 on:
-  push:
-    branches:
-      - main
   schedule:
-    - cron: "0 0 * * *" # Se ejecuta todos los días a medianoche UTC
+  - cron: '0 2 * * *' # Se ejecuta todos los días a medianoche UTC
 
 jobs:
   test:
