@@ -37,8 +37,11 @@ docker run -d -p 80:80 garrijuan/test_api_python:latest
 
 
 minikube start
-
+kubectl apply -f k8s/
 minikube addons enable ingress
+
+
+curl --location --request GET 'http://apppython/api/v1'
 
 
 
