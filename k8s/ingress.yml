@@ -2,17 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: appphyton-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  #annotations:
+    #nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-  - http:
+  - host: apppython
+    http:
       paths:
-      - path: /
+      - path: /api/v1/(.*)
         pathType: Prefix
         backend:
           service:
-            name: apppphyton
+            name: appphyton
             port:
-              number: 80
-    host: apppython
+              number: 8081
