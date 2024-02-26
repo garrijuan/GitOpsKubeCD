@@ -3,17 +3,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: appPython
+  name: apppython
 spec:
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: appPython
+      app: apppython
   template:
     metadata:
       labels:
-        app: appPython
+        app: apppython
     spec:
       securityContext:
         runAsUser: 1001
@@ -21,7 +21,7 @@ spec:
         fsGroup: 2000    
       restartPolicy: Always
       containers:
-      - name: appPython
+      - name: apppython
         image:  garrijuan/test_api_python:latest 
         #env:
         #- name: TOPO_PORT
@@ -35,15 +35,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: appPython
+  name: apppython
   labels:
-    app: appPython
+    app: apppython
 spec:
   selector:
-    app: appPython
+    app: apppython
   ports:
   - port: 80
     targetPort: 80
     protocol: TCP
-    name: appPython-port
+    name: apppython-port
   type: ClusterIP

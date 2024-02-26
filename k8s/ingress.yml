@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: appPhyton-ingress
+  name: appphyton-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
   - http:
       paths:
-      - path: /?(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
-            name: apppPhyton
+            name: apppphyton
             port:
               number: 80
-    host: minikube
+    host: apppython
