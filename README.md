@@ -40,6 +40,7 @@ docker run -d -p 80:80 garrijuan/test_api_python:latest
 minikube start
 kubectl apply -f k8s/
 minikube addons enable ingress
+kubectl describe ingress
 ```
 
 curl --location --request GET 'http://apppython'
@@ -48,3 +49,14 @@ curl --location --request GET 'http://apppython'
 
 Ingress
 si estás utilizando un Ingress y no especificas un puerto en tu solicitud curl, por defecto se asumirá el puerto 80 para las solicitudes HTTP. Esto se debe a que el Ingress suele estar configurado para redirigir las solicitudes HTTP al puerto 80 de los servicios internos de Kubernetes
+
+
+## argoCD
+https://medium.com/@mehmetodabashi/installing-argocd-on-minikube-and-deploying-a-test-application-caa68ec55fbf
+```sh
+kubectl create ns argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
+kubectl get all -n argocd
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
