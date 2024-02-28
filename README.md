@@ -61,9 +61,11 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 http://localhost:8080
 ![alt text](/documentation/argoLogin.png "ArgoCD-login")
+```
 Enter user and pass:
 user: admin
 pass: get with following command
-'kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo'
+```
+`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo`
 
 ![alt text](/documentation/argoCDinterface.png "ArgoCD-interface")
