@@ -35,13 +35,16 @@ curl http://localhost:80
 docker run -d -p 80:80 garrijuan/test_api_python:latest
 ```
 
-
+## cluster minikube
+```sh
 minikube start
 kubectl apply -f k8s/
 minikube addons enable ingress
+```
+
+curl --location --request GET 'http://apppython'
 
 
-curl --location --request GET 'http://apppython/api/v1'
 
-
-
+Ingress
+si estás utilizando un Ingress y no especificas un puerto en tu solicitud curl, por defecto se asumirá el puerto 80 para las solicitudes HTTP. Esto se debe a que el Ingress suele estar configurado para redirigir las solicitudes HTTP al puerto 80 de los servicios internos de Kubernetes

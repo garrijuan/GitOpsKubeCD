@@ -43,7 +43,7 @@ spec:
     app: apppython
   ports:
   - port: 8081
-    targetPort: 8081
+    targetPort: 80 #puerto del pod al que mando la peticion
     protocol: TCP
     name: apppython-port
   type: ClusterIP
