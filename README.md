@@ -72,12 +72,18 @@ pass: get with following command
 
 
 ## HELM
-'''helm create apppython'''
+```sh 
+helm create apppython
+```
 
 the previous command create a folder with different files, you should update deployment, service, ingress, notes... with your preferences and updated the values in the values.yml file
 
-'''helm install apppython ./apppython'''
+```sh
+helm install apppython ./apppython
+```
 
 you need a cluster running before use the previos command
 
-'''helm package mychart/'''
+```sh
+ helm package mychart/ # pakage me chart in a .tgz
+```
