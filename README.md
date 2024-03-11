@@ -85,5 +85,11 @@ helm install apppython ./apppython
 you need a cluster running before use the previos command
 
 ```sh
- helm package mychart/ # pakage me chart in a .tgz
+ helm package apppython/ # pakage me chart in a .tgz
+```
+Updated the deploy
+```sh
+helm template mychart ./apppython # muestra todo el deploy
+helm package apppython/ # pakage  chart 
+helm upgrade apppython ./apppython-0.1.0.tgz #deploy the new pakage chart
 ```

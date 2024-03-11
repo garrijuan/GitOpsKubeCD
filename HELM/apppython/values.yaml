@@ -24,7 +24,7 @@ apiPort: 80
 containerPort: 80
 
 # Number of replicas for the Deployment
-replicaCount: 2
+replicaCount: 3
 
 # Default values for my application  -- SERVICE
 
