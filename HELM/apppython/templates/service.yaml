@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "apppython.fullname" . }}
+  labels:
+    app: {{ include "apppython.name" . }}
+spec:
+  selector:
+    app: {{ include "apppython.name" . }}
+  ports:
+    - port: {{ .Values.servicePort }}
+      targetPort: {{ .Values.targetPort }}
+      protocol: {{ .Values.protocol }}
+      name: {{ .Values.serviceName }}
+  type: {{ .Values.serviceType }}

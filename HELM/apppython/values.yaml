@@ -1,0 +1,50 @@
+# Default values for my application -- DEPLOYMENT
+
+# Deployment strategy type
+strategyType: Recreate
+
+# Security context
+securityContext:
+  runAsUser: 1001
+  runAsGroup: 3000
+  fsGroup: 2000
+
+# Restart policy
+restartPolicy: Always
+
+# Container image configuration
+image:
+  repository: garrijuan/test_api_python
+  tag: latest
+
+# API port
+apiPort: 80
+
+# Container and service port
+containerPort: 80
+
+# Number of replicas for the Deployment
+replicaCount: 2
+
+# Default values for my application  -- SERVICE
+
+servicePort: 8081
+targetPort: 80 # Container port
+protocol: TCP
+serviceName: apppython-port # Service name
+serviceType: ClusterIP # Service type
+
+# Default values for my application -- INGRESS
+# Ingress host
+ingress:
+  host: apppython
+
+# Default values for my application - HPA
+
+# Autoscaling configuration
+autoscaling:
+  enabled: true  # Enable autoscaling
+  minReplicas: 1  # Minimum number of replicas
+  maxReplicas: 10  # Maximum number of replicas
+  targetCPUUtilizationPercentage: 50  # Target CPU utilization percentage for autoscaling
+  targetMemoryUtilizationPercentage: 80  # Target memory utilization percentage for autoscaling

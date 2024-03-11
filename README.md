@@ -38,8 +38,8 @@ docker run -d -p 80:80 garrijuan/test_api_python:latest
 ## minikube cluster 
 ```sh
 minikube start
-kubectl apply -f k8s/
 minikube addons enable ingress
+kubectl apply -f k8s/
 kubectl describe ingress
 
 
@@ -69,3 +69,15 @@ pass: get with following command
 `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo`
 
 ![alt text](/documentation/argoCDinterface.png "ArgoCD-interface")
+
+
+## HELM
+'''helm create apppython'''
+
+the previous command create a folder with different files, you should update deployment, service, ingress, notes... with your preferences and updated the values in the values.yml file
+
+'''helm install apppython ./apppython'''
+
+you need a cluster running before use the previos command
+
+'''helm package mychart/'''
