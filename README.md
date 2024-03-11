@@ -93,3 +93,8 @@ helm template mychart ./apppython # muestra todo el deploy
 helm package apppython/ # pakage  chart 
 helm upgrade apppython ./apppython-0.1.0.tgz #deploy the new pakage chart
 ```
+
+delete chart of cluster
+```sh
+helm uninstall apppython
+```
