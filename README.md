@@ -98,3 +98,24 @@ delete chart of cluster
 ```sh
 helm uninstall apppython
 ```
+
+
+argo cd intalacion en el cluster con chart
+
+helm repo add argo https://argoproj.github.io/argo-helm
+helm pull argo/argo-cd --version 5.8.2
+helm list 
+helm repo list # lista los chart descargados
+
+helm install argo-cd argo-cd/ \
+  --namespace argocd \
+  --create-namespace --wait \
+  --set configs.credentialTemplates.github.url=https://github.com/garrijuan \
+  --set configs.credentialTemplates.github.username=$(cat ~/.secrets/github/garrijuan/user) \
+  --set configs.credentialTemplates.github.password=$(cat ~/.secrets/github/garrijuan/token)
+
+  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+
+  argocd localhost:8080
+
+  argocd repo add https://github.com/TheAutomationRules/argocd.git
