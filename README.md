@@ -146,7 +146,27 @@ kubectl create ns testing
 Ahora creamos nuestra primera aplicación de pruebas en el proyecto que hemos creado anteriormente
 argocd app create apppython \
   --repo https://github.com/garrijuan/app-python-CICD.git \
-  --revision main --path ./official/examples/guestbook \
+  --revision main --path ./k8s \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace testing \
   --project testing
+
+Ahora creamos otra app, pero esta vez con sincronización automática
+
+
+  argocd app create helm-apppython \
+  --repo https://github.com/garrijuan/app-python-CICD.git \
+  --revision main --path ./HELM \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace testing \
+  --sync-policy automated \
+  --project testing
+
+Ahora podemos relanzar la primera App y sincronizar desde la CLI
+argocd app sync apppython
+
+Si queremos saber el estatus de la App
+argocd app get apppython
+
+Ahora para eliminar las Apps
+argocd app delete apppython
