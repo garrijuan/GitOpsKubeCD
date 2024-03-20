@@ -92,8 +92,9 @@ Updated the deploy
 helm template mychart ./apppython # muestra todo el deploy
 helm package apppython/ # pakage  chart 
 helm upgrade apppython ./apppython-0.1.0.tgz #deploy the new pakage chart
-
+helm repo index --url https://github.com/garrijuan/app-python-CICD/blob/main/HELM/apppython/charts/ .
 ```
+
 
 delete chart of cluster
 ```sh
@@ -101,22 +102,51 @@ helm uninstall apppython
 ```
 
 
-argo cd intalacion en el cluster con chart
+## ArgoCD intalacion en el cluster con chart
 
+### instalar binario de argo cd
+```sh
+wget https://github.com/argoproj/argo-cd/releases/download/v2.10.4/argocd-linux-amd64
+chmod +x argocd-linux-amd64
+sudo mv argocd-linux-amd64 /usr/local/bin/argocd
+argocd version
+```
+
+```sh
 helm repo add argo https://argoproj.github.io/argo-helm
 helm pull argo/argo-cd --version 5.8.2
 helm list 
 helm repo list # lista los chart descargados
 
-helm install argo-cd argo-cd/ \
+# dentro ruta chart de argocd, esto parece que no funciona, lo despliego como arriba entonces
+helm install argo-cd argo-cd/ \ 
   --namespace argocd \
   --create-namespace --wait \
   --set configs.credentialTemplates.github.url=https://github.com/garrijuan \
   --set configs.credentialTemplates.github.username=$(cat ~/.secrets/github/garrijuan/user) \
   --set configs.credentialTemplates.github.password=$(cat ~/.secrets/github/garrijuan/token)
+```
 
-  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
-  argocd localhost:8080
+argocd login localhost:8080
+  
+argocdpass
+argocd account update-password
+argocd repo add https://github.com/garrijuan/app-python-CICD.git
 
-  argocd repo add https://github.com/TheAutomationRules/argocd.git
+![alt text](/documentation/argocd-repo.png "ArgoCD-repository")
+
+Creamos un proyecto de pruebas en el que solo se puedan crear aplicaciones en el namespace "testing" y con determinado repositorio de código
+argocd proj create testing -d https://kubernetes.default.svc,testing -s https://github.com/garrijuan/app-python-CICD.git
+
+Creamos el Namespace "testing" que sera el que usaremos para desplegar las aplicaciones
+kubectl create ns testing
+
+Ahora creamos nuestra primera aplicación de pruebas en el proyecto que hemos creado anteriormente
+argocd app create apppython \
+  --repo https://github.com/garrijuan/app-python-CICD.git \
+  --revision main --path ./official/examples/guestbook \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace testing \
+  --project testing
