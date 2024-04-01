@@ -9,7 +9,7 @@ COPY requirements.txt .
 COPY main.py .
 
 # Instala las dependencias del proyecto
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install fastapi uvicorn
 
 # Expone el puerto 8000 para acceder al servicio
 EXPOSE 8000
