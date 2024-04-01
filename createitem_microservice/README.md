@@ -10,11 +10,16 @@ pip freeze > requirements.txt
 
 ## Build image calling Dockerfile
 ```sh
-docker build -t test_api_python .
+docker build -t createitem .
+docker tag createitem ${{ secrets.DOCKER_USERNAME }}/createitem:latest
+docker push ${{ secrets.DOCKER_USERNAME }}/createitem:latest
 
-docker run -d -p 80:80 test_api_python #levantar imagen  docker
+docker run -d -p 8000:8000 createitem #levantar imagen  docker
 
-curl http://localhost:80
+curl http://localhost:8000
 
-docker run -d -p 80:80 garrijuan/test_api_python:latest
+docker run -d -p 8000:8000 garrijuan/createitem:latest
 ```
+
+
+levantar mysql y asignar datos a las variables de entorno
