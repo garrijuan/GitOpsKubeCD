@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install -r appPython/app/requirements.txt
+          pip install -r apppython/app/requirements.txt
 
       - name: Run tests
         run: |
-          python3 -m unittest appPython/test/test_main.py
+          python3 -m unittest apppython/test/test_main.py
 
   build_and_push_docker:
     name: Build and Push Docker Image
@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker build -t test_api_python -f appPython/Dockerfile appPython
+        run: docker build -t test_api_python -f apppython/Dockerfile apppython
 
       - name: Tag Docker image
         run: |
