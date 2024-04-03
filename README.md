@@ -53,9 +53,7 @@ si estás utilizando un Ingress y no especificas un puerto en tu solicitud curl,
 ## argoCD
 https://medium.com/@mehmetodabashi/installing-argocd-on-minikube-and-deploying-a-test-application-caa68ec55fbf
 ```sh
-kubectl create ns argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
-kubectl get all -n argocd
+make install_argocd
 kubectl port-forward svc/argocd-server -n argocd 8080:443 #expose argocd app in localhost port 8080
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
@@ -69,6 +67,13 @@ pass: get with following command
 `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo`
 
 ![alt text](/documentation/argoCDinterface.png "ArgoCD-interface")
+
+```sh
+#from path /app_python_cicd/apppython/k8s
+kubectl apply -f CD.yml
+```
+
+![alt text](/documentation/appargocd.png "ArgoCD-app-syncronice")
 
 
 ## HELM
