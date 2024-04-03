@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apppython
+  namespace: argocd
+spec:
+  source:
+    path: apppython/k8s-test
+    repoURL: https://github.com/garrijuan/app-python-CICD.git
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kube-system
+  project: default
