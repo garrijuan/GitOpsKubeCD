@@ -6,7 +6,7 @@ MINIKUBE_PROFILE := minikube-cluster
 
 # Comandos
 start_cluster:
-	minikube start --profile=$(MINIKUBE_PROFILE)
+	minikube start --profile=$(MINIKUBE_PROFILE) 
 
 delete_cluster:
 	minikube stop --profile=$(MINIKUBE_PROFILE)
@@ -19,13 +19,14 @@ enable_ingress:
 install_argocd:
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-	argocd account update-password
+
 
 # kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
 
 # Delete ArgoCD
 delete_argocd:
 	kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+	kubectl delete namespace argocd
 	@echo "Delete argocd namespace manually when objects are finalized"
 
 
