@@ -43,7 +43,7 @@ Ingress
 si estás utilizando un Ingress y no especificas un puerto en tu solicitud curl, por defecto se asumirá el puerto 80 para las solicitudes HTTP. Esto se debe a que el Ingress suele estar configurado para redirigir las solicitudes HTTP al puerto 80 de los servicios internos de Kubernetes
 
 
-## ArgoCD *****************************
+## ArgoCD 
 ```sh
 make install_argocd # if the cluster havent ArgoCD
 kubectl port-forward svc/argocd-server -n argocd 8080:443 #expose argocd app in localhost port 8080
@@ -96,7 +96,6 @@ argocd app get apppython
 #Ahora para eliminar las Apps
 argocd app delete apppython
 ```
-## ***********************
 
 ## HELM 
 ```sh 
@@ -132,8 +131,3 @@ delete chart of cluster
 ```sh
 helm uninstall apppython
 ```
-
-
-
--------------para despeglar el image updater -------
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
