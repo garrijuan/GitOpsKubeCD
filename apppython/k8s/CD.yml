@@ -4,8 +4,10 @@ metadata:
   name: apppython
   namespace: argocd
 spec:
+  syncPolicy:
+    automated: {}
   source:
-    path: apppython # mira si hay cambio aqui 
+    path: apppython/k8s-test # the k8s source files 
     repoURL: https://github.com/garrijuan/app-python-CICD.git
     targetRevision: main
   destination:
