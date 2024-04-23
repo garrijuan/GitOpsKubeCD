@@ -72,6 +72,8 @@ pass: get with following command
 #from path /app_python_cicd/apppython/k8s
 kubectl apply -f CD.yml
 ```
+Al desplegar la app en ArgoCD por defecto no se sincroniza automaticamente, hay que hacerlo de forma manual o habilitar el autosincronize
+
 
 ![alt text](/documentation/appargocd.png "ArgoCD-app-syncronice")
 
