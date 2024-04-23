@@ -11,27 +11,21 @@ comprobar que levanta imagen desde dockerhub y App Working
 ```sh
 uvicorn main:app --reload
 ```
-
 ## Run test
 ```sh
 python3 test_main.py
-
 python3 -m unittest appPython/test/test_main.py #desde el raiz
 ```
-
 ## generate dependencies file
 ```sh
 pip freeze > requirements.txt
 ```
-
 ## Build image calling Dockerfile
 ```sh
 docker build -t test_api_python .
-
 docker run -d -p 80:80 test_api_python #levantar imagen  docker
-
+##test application
 curl http://localhost:80
-
 docker run -d -p 80:80 garrijuan/test_api_python:latest
 ```
 
@@ -41,7 +35,6 @@ minikube start
 minikube addons enable ingress
 kubectl apply -f k8s/
 kubectl describe ingress
-
 
 curl --location --request GET 'http://apppython'
 ```
@@ -71,11 +64,9 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 ![alt text](/documentation/argoCDinterface.png "ArgoCD-interface")
 ```sh
-kubectl create ns testing # create this namespace to deploy on it
+kubectl create ns staging # create this namespace to deploy on it
 ```
-Create the application on ArgoCD(we have 2 ways):
-
-### FIRST
+### Create the application on ArgoCD
 ```sh
 #from path /app_python_cicd/apppython/k8s
 kubectl apply -f CD.yml #this is a type of resource in kubernetes to deploy application.
@@ -91,32 +82,13 @@ the following image is a example a applicaiton correctly syncronice
 ![alt text](/documentation/appargocd.png "ArgoCD-app-syncronice")
 Now, we have syncronice the application and we can a get request and the application return the example message
 ![alt text](/documentation/argoCommit1.png "ArgoCD-app-syncroniceV1")
-
 #cambio el codigo de la api para que me devuelva otro string diferente, y ver como se sincroniza automaticamente
 
+**se ha usado image-updater de argoCD, para ello se ha desplegado un componente mas en la instalacion de argo, tambien añadir unos annotation en el CRD(CD.yml)
+para desplegar esto es necesario usar HELM, se usa como tag el identificor corto del commit
 
-### SECOND:(Error -> Access Denied)
+CLI:
 ```sh
-#Creamos un proyecto de pruebas en el que solo se puedan crear aplicaciones en el namespace "testing" y con determinado repositorio de código
-argocd proj create testing -d https://kubernetes.default.svc,testing -s https://github.com/garrijuan/app-python-CICD.git
-#Creamos el Namespace "testing" que sera el que usaremos para desplegar las aplicaciones
-kubectl create ns testing
-#Ahora creamos la app
-argocd app create apppython \
-  --repo https://github.com/garrijuan/app-python-CICD.git \
-  --revision main --path ./k8s-test \
-  --dest-server https://kubernetes.default.svc \
-  --dest-namespace testing \
-  #--sync-policy automated \
-  --project testing
-#Ahora creamos otra app, pero esta vez con sincronización automática
-  argocd app create helm-apppython \
-  --repo https://github.com/garrijuan/app-python-CICD.git \
-  --revision main --path ./HELM \
-  --dest-server https://kubernetes.default.svc \
-  --dest-namespace testing \
-  --sync-policy automated \
-  --project testing
 #Ahora podemos relanzar la primera App y sincronizar desde la CLI
 argocd app sync apppython
 #Si queremos saber el estatus de la App
@@ -163,5 +135,5 @@ helm uninstall apppython
 
 
 
--------------
+-------------para despeglar el image updater -------
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
