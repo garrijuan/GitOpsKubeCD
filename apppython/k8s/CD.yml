@@ -4,6 +4,8 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: myalias=garrijuan/test_api_python
     argocd-image-updater.argoproj.io/myalias.helm.image-spec: image.tag
+    ##argocd-image-updater.argoproj.io/myalias.helm.image-name: image.repository
+    argocd-image-updater.argoproj.io/myalias.update-strategy: latest
   name: apppython
   namespace: argocd
 spec:
