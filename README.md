@@ -110,7 +110,7 @@ kubectl create ns testing
 #Ahora creamos la app
 argocd app create apppython \
   --repo https://github.com/garrijuan/app-python-CICD.git \
-  --revision main --path ./k8s \
+  --revision main --path ./k8s-test \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace testing \
   #--sync-policy automated \
