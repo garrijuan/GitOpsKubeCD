@@ -13,6 +13,7 @@ start_cluster_complete:
 	minikube addons enable ingress --profile=$(MINIKUBE_PROFILE)
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml 
 	@echo "Cluster created + Ingress + ArgoCD"
 
 delete_cluster:
@@ -27,10 +28,12 @@ enable_ingress:
 install_argocd:
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml 
 
 # Delete ArgoCD
 delete_argocd:
 	kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+	kubectl delete -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml 
 	kubectl delete namespace argocd
 	@echo "Delete argocd namespace manually when objects are finalized"
 

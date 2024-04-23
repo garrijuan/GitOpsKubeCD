@@ -1,6 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+#muy importante para usar Image Updater
   annotations:
     argocd-image-updater.argoproj.io/image-list: myalias=garrijuan/test_api_python
     argocd-image-updater.argoproj.io/myalias.helm.image-tag: image.tag
@@ -10,12 +11,13 @@ metadata:
   namespace: argocd
 spec:
   syncPolicy:
-    automated: {}
+    automated: {} # to syncronize automatically
   source:
+  #desplegamos con HELM, hay que hacerlo obligatoriamente para usar Image Updater
     path: HELM/apppython #apppython/k8s-test # the k8s source files 
     repoURL: https://github.com/garrijuan/app-python-CICD.git
     targetRevision: main
   destination:
-    server: 'https://kubernetes.default.svc' #cluster monitoring
-    namespace: default #namespace where we want to deploy
+    server: 'https://kubernetes.default.svc' #Target cluster 
+    namespace: staging #namespace where we want to deploy
   project: default
