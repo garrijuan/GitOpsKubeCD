@@ -50,58 +50,52 @@ Ingress
 si estás utilizando un Ingress y no especificas un puerto en tu solicitud curl, por defecto se asumirá el puerto 80 para las solicitudes HTTP. Esto se debe a que el Ingress suele estar configurado para redirigir las solicitudes HTTP al puerto 80 de los servicios internos de Kubernetes
 
 
-## argoCD *****************************
+## ArgoCD *****************************
 ```sh
 make install_argocd # if the cluster havent ArgoCD
 kubectl port-forward svc/argocd-server -n argocd 8080:443 #expose argocd app in localhost port 8080
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo #Return the pass
-argocdpass   235-hC8ILfYMcYtg
-
 argocd login localhost:8080
-
-#si quiero actualizar la pass, primero me logeo(old pass), y despues cambio primero metiendo la pass antigua
-#la pass tiene que tener entre 8 y 32 digitos
+#if we want update the pass, fist login in Argo with the last command, afterwards update the pass with the following command.
+#the pass must have a lengh between 8 and 32 characteres
 argocd account update-password
-
-argocd repo add https://github.com/garrijuan/app-python-CICD.git
 ```
+To Access ArgoCD application:
 http://localhost:8080
 ![alt text](/documentation/argoLogin.png "ArgoCD-login")
-```
 Enter user and pass:
 user: admin
 pass: get with following command
+```sh
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
-`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo`
-
 ![alt text](/documentation/argoCDinterface.png "ArgoCD-interface")
+```sh
+kubectl create ns testing # create this namespace to deploy on it
+```
+Create the application on ArgoCD(we have 2 ways):
 
-kubectl create ns testing
-
-Ahora creamos nuestra primera aplicación de pruebas en el proyecto que hemos creado anteriormente
-
-FORMA1
+### FIRST
 ```sh
 #from path /app_python_cicd/apppython/k8s
-kubectl apply -f CD.yml
+kubectl apply -f CD.yml #this is a type of resource in kubernetes to deploy application.
 ```
-Al desplegar la app en ArgoCD por defecto no se sincroniza automaticamente, hay que hacerlo de forma manual o habilitar el autosincronize
+when we deploy the application on ArgoCD it isnt syncronized by default, we have to manually do it  or enable the autosync
 
-añado el repo
+Add the github repository to ArgoCD to monitoring the changes
+```sh
 argocd repo add https://github.com/garrijuan/app-python-CICD.git
-
+```
 ![alt text](/documentation/argocd-repo.png "ArgoCD-repository")
-
-
-
+the following image is a example a applicaiton correctly syncronice
 ![alt text](/documentation/appargocd.png "ArgoCD-app-syncronice")
-
+Now, we have syncronice the application and we can a get request and the application return the example message
 ![alt text](/documentation/argoCommit1.png "ArgoCD-app-syncroniceV1")
 
 #cambio el codigo de la api para que me devuelva otro string diferente, y ver como se sincroniza automaticamente
 
 
-FORMA2:(peta por permiso denegado)
+### SECOND:(Error -> Access Denied)
 ```sh
 #Creamos un proyecto de pruebas en el que solo se puedan crear aplicaciones en el namespace "testing" y con determinado repositorio de código
 argocd proj create testing -d https://kubernetes.default.svc,testing -s https://github.com/garrijuan/app-python-CICD.git
