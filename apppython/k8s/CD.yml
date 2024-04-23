@@ -2,14 +2,15 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd-image-updater.argoproj.io/image-list: garrijuan/test_api_python
+    argocd-image-updater.argoproj.io/image-list: myalias=garrijuan/test_api_python
+    argocd-image-updater.argoproj.io/myalias.helm.image-spec: image.tag
   name: apppython
   namespace: argocd
 spec:
   syncPolicy:
     automated: {}
   source:
-    path: apppython/k8s-test # the k8s source files 
+    path: HELM/apppython #apppython/k8s-test # the k8s source files 
     repoURL: https://github.com/garrijuan/app-python-CICD.git
     targetRevision: main
   destination:
