@@ -5,10 +5,10 @@ metadata:
   namespace: argocd
 spec:
   source:
-    path: apppython/k8s-test
+    path: apppython/k8s-test # the k8s source files 
     repoURL: https://github.com/garrijuan/app-python-CICD.git
     targetRevision: HEAD
   destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: kube-system
+    server: 'https://kubernetes.default.svc' #cluster monitoring
+    namespace: kube-system #namespace where we want to deploy
   project: default

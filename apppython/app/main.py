@@ -6,5 +6,5 @@ app = FastAPI()
 # Definir una ruta para la raíz de la aplicación
 @app.get("/")
 def read_root():
-    return {"Hola": "Mundo JA jeje\n"}
+    return {"Virulo fans"}
 ##comment 

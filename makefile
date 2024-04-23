@@ -18,6 +18,7 @@ start_cluster_complete:
 delete_cluster:
 	minikube stop --profile=$(MINIKUBE_PROFILE)
 	minikube delete --profile=$(MINIKUBE_PROFILE)
+	@echo "Cluster deleted"
 
 enable_ingress:
 	minikube addons enable ingress --profile=$(MINIKUBE_PROFILE)
@@ -26,9 +27,6 @@ enable_ingress:
 install_argocd:
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-
-
-# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
 
 # Delete ArgoCD
 delete_argocd:
@@ -53,6 +51,6 @@ delete_argocd:
 #	kubectl apply -f ingress.yaml
 
 # Tareas
-start: start-cluster enable-ingress install_argocd
+start: start_cluster enable_ingress install_argocd
 
 #deploy: build-image load-image deploy-app expose-app apply-ingress
