@@ -22,7 +22,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: apppython
-        image:  garrijuan/test_api_python:latest 
+        image:  garrijuan/test_api_python:latest
         env:
         - name: API_PORT
           value: "80"
