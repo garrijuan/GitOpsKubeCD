@@ -14,6 +14,7 @@ start_cluster_complete:
 	kubectl create namespace argocd
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml 
+	kubectl create namespace staging
 	@echo "Cluster created + Ingress + ArgoCD"
 
 delete_cluster:

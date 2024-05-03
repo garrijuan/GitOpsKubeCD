@@ -131,3 +131,16 @@ delete chart of cluster
 ```sh
 helm uninstall apppython
 ```
+
+
+## EKS
+para usar ingress tengo que levantar un servicio de nginx con helm en ese cluster
+```sh
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+kubectl create namespace ingress-nginx
+helm install my-nginx-controller ingress-nginx/ingress-nginx
+```sh
+
+kubectl get pods -n ingress-nginx
