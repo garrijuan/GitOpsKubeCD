@@ -105,7 +105,7 @@ helm create apppython
 the previous command create a folder with different files, you should update deployment, service, ingress, notes... with your preferences and updated the values in the values.yml file
 
 ```sh
-helm install apppython ./apppython
+helm install apppython ./apppython 
 ```
 
 you need a cluster running before use the previos command
@@ -146,14 +146,59 @@ kubectl get pods -n ingress-nginx
 ```
 
 ### step for the example
-1.Deploy a cluster on EKS
-2.execute --> make install_argocd
-3.install a ingress-nginx with previous HELM chats
-4.login in argocd
+1.Deploy a cluster on EKS                                           ok
+2.execute --> make install_argocd                                   ok
+3.install a ingress-nginx with previous HELM chats                  ok
+4.login in argocd                                                   ok
 5.test to deploy app with HELM chart apppython
+    helm install apppython ./apppython --namespace staging
+
+    kubectl delete service apppython -n staging
+    kubectl delete deployment apppython -n staging
+    kubectl delete hpa apppython -n staging
+    kubectl delete ingress apppython -n staging
+ 
+    helm upgrade apppython ./apppython --namespace staging
+
+    los pods no terminan de arrancar ERROR:    [Errno 13] error while attempting to bind on address ('0.0.0.0', 80): permission denied
+
 6.test app is working
 7.delete apppython chart
 8.deploy app from path /app_python_cicd/apppython/k8s
     --> kubectl apply -f CD.yml 
 9.test app is working
 10.test change in the code and apply directly in the cluster
+
+
+
+helm install apppython ./apppython --namespace staging
+ERROR:    [Errno 13] error while attempting to bind on address ('0.0.0.0', 80): permission denied
+este error creo que es debido a tener el deployment con usuario especifico, lo he comentado y funciona
+
+dudas?
+mi host es apppython en el ingress
+como accedo a cluster/ingress           -- a traves del load
+
+
+
+se accede al LB /x para acceder a los servicios del cluster
+estoy teniendo porblemas al desplegar el ingress de apppython que no engancha con el ELB
+
+con otras antiguas si que va bien
+
+
+
+## deploy example app
+kubectl apply -f k8s/
+
+kubectl get ing
+
+curl a13efc445342d4816b73517d70305b6a-1084696550.us-east-1.elb.amazonaws.com
+curl abef3c98bdf5d4415b4034e2e4aec24a-904040195.eu-central-1.elb.amazonaws.com/api
+
+curl abef3c98bdf5d4415b4034e2e4aec24a-904040195.eu-central-1.elb.amazonaws.com/api/test
+
+
+### deploy Eoloplanner
+
+curl a8517858dea37481fbda661923ab9c88-798216478.us-east-1.elb.amazonaws.com/toposervice/api/topographicdetails/sevilla
