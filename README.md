@@ -116,7 +116,7 @@ you need a cluster running before use the previos command
 Updated the deploy
 ```sh
 helm template mychart ./apppython # muestra todo el deploy
-helm package apppython/ # pakage  chart 
+helm package apppython/ # pakage me chart in a .tgz
 helm upgrade apppython ./apppython-0.1.0.tgz #deploy the new pakage chart
 helm repo index --url https://github.com/garrijuan/app-python-CICD/blob/main/HELM/apppython/charts/ .
 ```
@@ -162,6 +162,8 @@ kubectl get pods -n ingress-nginx
 
     los pods no terminan de arrancar ERROR:    [Errno 13] error while attempting to bind on address ('0.0.0.0', 80): permission denied
 
+sin helm ya funciona llamamos al alb/path
+ahora hay q hacerlo andar con HELM
 6.test app is working
 7.delete apppython chart
 8.deploy app from path /app_python_cicd/apppython/k8s

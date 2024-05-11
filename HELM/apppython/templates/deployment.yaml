@@ -13,10 +13,6 @@ spec:
       labels:
         app: {{ include "apppython.name" . }}
     spec:
-      #securityContext:
-      #  runAsUser: {{ .Values.securityContext.runAsUser }}
-      #  runAsGroup: {{ .Values.securityContext.runAsGroup }}
-      #  fsGroup: {{ .Values.securityContext.fsGroup }}
       restartPolicy: {{ .Values.restartPolicy }}
       containers:
         - name: {{ .Chart.Name }}
