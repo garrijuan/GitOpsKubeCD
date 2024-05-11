@@ -134,13 +134,26 @@ helm uninstall apppython
 
 
 ## EKS
-para usar ingress tengo que levantar un servicio de nginx con helm en ese cluster
 ```sh
+#deploy nginx ingress in  the cluster to apply a ingress policy
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 kubectl create namespace ingress-nginx
 helm install my-nginx-controller ingress-nginx/ingress-nginx
-```sh
 
 kubectl get pods -n ingress-nginx
+```
+
+### step for the example
+1.Deploy a cluster on EKS
+2.execute --> make install_argocd
+3.install a ingress-nginx with previous HELM chats
+4.login in argocd
+5.test to deploy app with HELM chart apppython
+6.test app is working
+7.delete apppython chart
+8.deploy app from path /app_python_cicd/apppython/k8s
+    --> kubectl apply -f CD.yml 
+9.test app is working
+10.test change in the code and apply directly in the cluster
