@@ -4,10 +4,10 @@
 strategyType: Recreate
 
 # Security context
-securityContext:
-  runAsUser: 1001
-  runAsGroup: 3000
-  fsGroup: 2000
+#securityContext:
+#  runAsUser: 1001
+#  runAsGroup: 3000
+#  fsGroup: 2000
 
 # Restart policy
 restartPolicy: Always
@@ -37,7 +37,8 @@ serviceType: ClusterIP # Service type
 # Default values for my application -- INGRESS
 # Ingress host
 ingress:
-  host: apppython
+  #host: apppython
+  path: /api/test/?(.*)
 
 # Default values for my application - HPA
 

@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   name: {{ include "apppython.fullname" . }}
 spec:
+  ingressClassName: nginx #sin esta anotacion eks no asocia ALB a el ingress del cluster
   rules:
-    - host: {{ .Values.ingress.host }}
-      http:
+    - http:
         paths:
-          - path: /
+          - path: {{ .Values.ingress.path }}
             pathType: Prefix
             backend:
               service:
@@ -16,3 +16,4 @@ spec:
                   number: {{ .Values.servicePort }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"

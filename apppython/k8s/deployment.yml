@@ -1,0 +1,49 @@
+# Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apppython
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: apppython
+  template:
+    metadata:
+      labels:
+        app: apppython
+    spec:
+      #securityContext:
+       # runAsUser: 1001
+        #runAsGroup: 3000
+        #fsGroup: 2000    
+      restartPolicy: Always
+      containers:
+      - name: apppython
+        image:  garrijuan/test_api_python:latest
+        env:
+        - name: API_PORT
+          value: "80"
+        ports:
+        - containerPort: 80
+  replicas: 3
+
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: apppython
+  labels:
+    app: apppython
+spec:
+  selector:
+    app: apppython
+  ports:
+  - port: 8081
+    targetPort: 80 #puerto del pod al que mando la peticion.
+    protocol: TCP
+    name: apppython-port
+  type: ClusterIP
