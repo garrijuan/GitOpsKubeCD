@@ -106,6 +106,8 @@ the previous command create a folder with different files, you should update dep
 
 ```sh
 helm install apppython ./apppython 
+helm status apppython               
+helm get values apppython           # Values of the current realease
 ```
 
 you need a cluster running before use the previos command
@@ -123,8 +125,9 @@ helm repo index --url https://github.com/garrijuan/app-python-CICD/blob/main/HEL
 ```sh
 #helm repo add argo https://argoproj.github.io/argo-helm
 #helm pull argo/argo-cd --version 5.8.2
-helm list 
-helm repo list # lista los chart descargados
+helm list       # List all realease on a cluster
+helm list --all # List all realease on a cluster with all status(UNINSTALLED;DEPLOYED, etc)
+helm repo list  # List the Charts downloaded
 ```
 
 delete chart of cluster
@@ -140,7 +143,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 
 kubectl create namespace ingress-nginx
-helm install my-nginx-controller ingress-nginx/ingress-nginx
+helm install my-nginx-controller ingress-nginx/ingress-nginx --namespace ingress-nginx
 
 kubectl get pods -n ingress-nginx
 ```
