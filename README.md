@@ -147,6 +147,7 @@ helm install my-nginx-controller ingress-nginx/ingress-nginx --namespace ingress
 
 kubectl get pods -n ingress-nginx
 ```
+Access to cluster throught the ALB, the request to the microserver will be make ALB endpoint+ specific path of microserver
 
 ### step for the example
 1.Deploy a cluster on EKS                                           ok
