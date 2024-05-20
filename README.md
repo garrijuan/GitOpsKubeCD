@@ -154,21 +154,8 @@ Access to cluster throught the ALB, the request to the microserver will be make 
 2.execute --> make install_argocd                                   ok
 3.install a ingress-nginx with previous HELM chats                  ok
 4.login in argocd                                                   ok
-5.test to deploy app with HELM chart apppython
-    helm install apppython ./apppython --namespace staging
-
-    kubectl delete service apppython -n staging
-    kubectl delete deployment apppython -n staging
-    kubectl delete hpa apppython -n staging
-    kubectl delete ingress apppython -n staging
- 
-    helm upgrade apppython ./apppython --namespace staging
-
-    los pods no terminan de arrancar ERROR:    [Errno 13] error while attempting to bind on address ('0.0.0.0', 80): permission denied
-
-sin helm ya funciona llamamos al alb/path
-ahora hay q hacerlo andar con HELM
-6.test app is working
+5.test to deploy app with HELM chart apppython                      ok
+6.test app is working                                               ok
 7.delete apppython chart
 8.deploy app from path /app_python_cicd/apppython/k8s
     --> kubectl apply -f CD.yml 
@@ -199,10 +186,7 @@ kubectl apply -f k8s/
 
 kubectl get ing
 
-curl a13efc445342d4816b73517d70305b6a-1084696550.us-east-1.elb.amazonaws.com
-curl abef3c98bdf5d4415b4034e2e4aec24a-904040195.eu-central-1.elb.amazonaws.com/api
-
-curl abef3c98bdf5d4415b4034e2e4aec24a-904040195.eu-central-1.elb.amazonaws.com/api/test
+curl a7e5caf0b0ff24439a48331ac863e619-270330354.us-east-1.elb.amazonaws.com/api
 
 
 ### deploy Eoloplanner
