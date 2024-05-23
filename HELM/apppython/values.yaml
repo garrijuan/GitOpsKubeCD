@@ -14,8 +14,8 @@ restartPolicy: Always
 
 # Container image configuration
 image:
-  repository: garrijuan/test_api_python
-  tag: latest
+  repository: garrijuan/microserver_dev
+  tag: 75222e9
 
 # API port
 apiPort: 80
