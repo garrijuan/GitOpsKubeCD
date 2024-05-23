@@ -148,7 +148,7 @@ helm uninstall apppython
 
 6.test app is working                                            :heavy_check_mark:
 
-7.delete apppython chart
+7.delete apppython chart                                         :heavy_check_mark:
 
 8.deploy app from path /app_python_cicd/apppython/k8s            :heavy_check_mark:
 
