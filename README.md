@@ -78,10 +78,11 @@ the following image is a example a applicaiton correctly syncronice
 ![alt text](/documentation/appargocd.png "ArgoCD-app-syncronice")
 Now, we have syncronice the application and we can a get request and the application return the example message
 ![alt text](/documentation/argoCommit1.png "ArgoCD-app-syncroniceV1")
-#cambio el codigo de la api para que me devuelva otro string diferente, y ver como se sincroniza automaticamente
 
-**se ha usado image-updater de argoCD, para ello se ha desplegado un componente mas en la instalacion de argo, tambien añadir unos annotation en el CRD(CD.yml)
-para desplegar esto es necesario usar HELM, se usa como tag el identificor corto del commit
+change the api code to return a different string, and see how it synchronizes automatically.
+
+**image-updater from argoCD has been used, for this we have deployed one more component in the argo installation, also add some annotation in the CRD(CD.yml)
+to deploy this is necessary to use HELM, the short commit identifier is used as tag.
 
 CLI:
 ```sh
@@ -132,21 +133,10 @@ helm uninstall apppython
 ```
 
 
-## EKS
-```sh
-#deploy nginx ingress in  the cluster to apply a ingress policy
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm repo update
-
-kubectl create namespace ingress-nginx
-helm install my-nginx-controller ingress-nginx/ingress-nginx --namespace ingress-nginx
-
-kubectl get pods -n ingress-nginx
-```
-Access to cluster throught the ALB, the request to the microserver will be make ALB endpoint+ specific path of microserver
+## Gitops on EKS
 
 ### step for the example
-1.Deploy a cluster on EKS                                           ok
+1.Deploy a cluster on EKS                                           :tick:
 2.execute --> make install_argocd                                   ok
 3.install a ingress-nginx with previous HELM chats                  ok
 4.login in argocd                                                   ok
@@ -158,33 +148,44 @@ Access to cluster throught the ALB, the request to the microserver will be make 
 9.test app is working
 10.test change in the code and apply directly in the cluster
 
+```sh
+#deploy nginx ingress in  the cluster to apply a ingress policy
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+kubectl create namespace ingress-nginx
+helm install my-nginx-controller ingress-nginx/ingress-nginx --namespace ingress-nginx
+
+kubectl get pods -n ingress-nginx
+
+make install_argocd 
+```
+
+we apply the manifest deploy the app in Argocd.
+
+![alt text](/documentation/LENS.png "ArgoCD-LENS")
+
+Then we deploy the app in its first version and check on Argocd interface that the application has been deployed correctly.
+
+![alt text](/documentation/argoEKS1.png "ArgoCD-EKS1")
+
+we check in argocd that the application has been deployed correctly, now we will make a change in the code, for example, message returned = "Hola:Virulo2" . Argo should monitor the image repository, realize that there is a new image and deploy it automatically.
+
+![alt text](/documentation/argoEKS2.png "ArgoCD-EKS1")
+
+Now we make a change in the internal cluster infrastructure, change the number of replicas and check how argo notices this and deploys it automatically.
+
+![alt text](/documentation/argoinfra.png "ArgoCD-infra")
+
+In both cases we can see how it detects the commit at the top and how it deploys new pods every time we make a change.
 
 
-helm install apppython ./apppython --namespace staging
-ERROR:    [Errno 13] error while attempting to bind on address ('0.0.0.0', 80): permission denied
-este error creo que es debido a tener el deployment con usuario especifico, lo he comentado y funciona
-
-dudas?
-mi host es apppython en el ingress
-como accedo a cluster/ingress           -- a traves del load
-
-
-
-se accede al LB /x para acceder a los servicios del cluster
-estoy teniendo porblemas al desplegar el ingress de apppython que no engancha con el ELB
-
-con otras antiguas si que va bien
-
-
-
-## deploy example app
-kubectl apply -f k8s/
-
-kubectl get ing
-
+Access to cluster throught the ALB(Load Balancer), the request to the microserver will be make ALB endpoint + specific path of microserver:
+```sh
 curl a7e5caf0b0ff24439a48331ac863e619-270330354.us-east-1.elb.amazonaws.com/api
+```
 
 
-### deploy Eoloplanner
 
-curl a8517858dea37481fbda661923ab9c88-798216478.us-east-1.elb.amazonaws.com/toposervice/api/topographicdetails/sevilla
+
+
