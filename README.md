@@ -136,27 +136,27 @@ helm uninstall apppython
 ## Gitops on EKS
 
 ### step for the example
-1.Deploy a cluster on EKS                                           :heavy_check_mark:
+1.Deploy a cluster on EKS                                        :heavy_check_mark:
 
-2.execute --> make install_argocd                                   ok
+2.execute --> make install_argocd                                :heavy_check_mark:
 
-3.install a ingress-nginx with previous HELM chats                  ok
+3.install a ingress-nginx with previous HELM chats               :heavy_check_mark:
 
-4.login in argocd                                                   ok
+4.login in argocd                                                :heavy_check_mark:
 
-5.test to deploy app with HELM chart apppython                      ok
+5.test to deploy app with HELM chart apppython                   :heavy_check_mark:
 
-6.test app is working                                               ok
+6.test app is working                                            :heavy_check_mark:
 
 7.delete apppython chart
 
-8.deploy app from path /app_python_cicd/apppython/k8s
+8.deploy app from path /app_python_cicd/apppython/k8s            :heavy_check_mark:
 
     --> kubectl apply -f CD.yml 
 
-9.test app is working
+9.test app is working                                            :heavy_check_mark:
 
-10.test change in the code and apply directly in the cluster
+10.test change in the code and apply directly in the cluster     :heavy_check_mark:
 
 ```sh
 #deploy nginx ingress in  the cluster to apply a ingress policy
