@@ -4,6 +4,8 @@
 
 ## Developer Microservice example to test the system
 
+:ship_wheel:
+
 ### Run app in local enviroment
 ```sh
 uvicorn main:app --reload
