@@ -1,35 +1,32 @@
-puntos:
-app basica API REST con Python(FASTAPI)
-test basico Responde 200 con pytest
-worflow github actions commit con test ok
-dockerfile para generar imagen docker y correr en local
-workflow github action automatizar generacion imagen y repositado en dockerhub
-comprobar que levanta imagen desde dockerhub y App Working
+
+# :rocket: GitOps :rocket: 
 
 
-## Run app in local envoroment
+## Developer Microservice example to test the system
+
+### Run app in local enviroment
 ```sh
 uvicorn main:app --reload
 ```
-## Run test
+### Run test
 ```sh
 python3 test_main.py
-python3 -m unittest appPython/test/test_main.py #desde el raiz
+python3 -m unittest appPython/test/test_main.py # From root directory
 ```
-## generate dependencies file
+### generate dependencies file
 ```sh
 pip freeze > requirements.txt
 ```
-## Build image calling Dockerfile
+### Build image calling Dockerfile
 ```sh
 docker build -t test_api_python .
-docker run -d -p 80:80 test_api_python #levantar imagen  docker
+docker run -d -p 80:80 test_api_python # Working Docker image
 ##test application
 curl http://localhost:80
 docker run -d -p 80:80 garrijuan/test_api_python:latest
 ```
 
-## minikube cluster 
+## Minikube cluster 
 ```sh
 minikube start
 minikube addons enable ingress
@@ -37,11 +34,10 @@ kubectl apply -f k8s/
 kubectl describe ingress
 
 curl --location --request GET 'http://apppython'
+
+#Ingress
+# When you are using an Ingress and you do not specify a port in your Http request, by default port 80 will be assumed for HTTP requests. This is because Ingress is usually configured to redirect HTTP requests to port 80 for internal Kubernetes services.
 ```
-
-Ingress
-si estás utilizando un Ingress y no especificas un puerto en tu solicitud curl, por defecto se asumirá el puerto 80 para las solicitudes HTTP. Esto se debe a que el Ingress suele estar configurado para redirigir las solicitudes HTTP al puerto 80 de los servicios internos de Kubernetes
-
 
 ## ArgoCD 
 ```sh
