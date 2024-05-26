@@ -197,5 +197,14 @@ curl a7e5caf0b0ff24439a48331ac863e619-270330354.us-east-1.elb.amazonaws.com/api
 
 
 
+# Devops Workflow 
 
+A DevOps workflow streamlines software development and IT operations by integrating practices like continuous integration, automated testing, deployment automation, and continuous monitoring. It fosters collaboration between development and operations teams, leading to faster delivery of high-quality software. By automating repetitive tasks and promoting a culture of continuous improvement.
 
+In this repository, you can find a example of this flow:
+
+![alt text](/documentation/esquemaDevops.jpg "esquemaDevops")
+
+Ideally the developer is working on a microservice, he is making changes on a branch called in this case, DEV, during the working day he is committing changes against the report, these changes are automatically deployed to the pre environment within a k8s cluster and he can immediately see his changes reflected and deployed in this cluster.
+At the end of the working day, he considers that he must upload those changes to PROD, just do a merge from the dev branch to the main branch and he will automatically see his changes deployed to the cluster in the PROD environment.
+This is achieved through commit automation and automatic image generation in both environments every time the developer commits changes and automated deployment is achieved through argoCD, a tool deployed in the cluster that monitors the artifact repositories to see if there are new artifacts to deploy and also infrastructure repositories in case there are any changes in deployments or similar. 
