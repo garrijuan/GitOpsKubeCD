@@ -3,13 +3,13 @@ kind: Service
 metadata:
   name: {{ include "apppython-minikube.fullname" . }}
   labels:
-    {{- include "apppython-minikube.labels" . | nindent 4 }}
+    app: {{ include "apppython-minikube.name" . }}
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
   selector:
-    {{- include "apppython-minikube.selectorLabels" . | nindent 4 }}
+    app: {{ include "apppython-minikube.name" . }}
+  ports:
+    - port: {{ .Values.servicePort }}
+      targetPort: {{ .Values.targetPort }}
+      protocol: {{ .Values.protocol }}
+      name: {{ .Values.serviceName }}
+  type: {{ .Values.serviceType }}
