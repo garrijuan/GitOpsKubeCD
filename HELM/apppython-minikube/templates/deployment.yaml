@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apppython.fullname" . }}
+spec:
+  strategy:
+    type: {{ .Values.strategyType }}
+  selector:
+    matchLabels:
+      app: {{ include "apppython.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "apppython.name" . }}
+    spec:
+      restartPolicy: {{ .Values.restartPolicy }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: API_PORT
+              value: "{{ .Values.apiPort }}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+  replicas: {{ .Values.replicaCount }}

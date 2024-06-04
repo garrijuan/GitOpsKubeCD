@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "apppython-EKS.fullname" . }}-test-connection"
+  labels:
+    {{- include "apppython-EKS.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "apppython-EKS.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
