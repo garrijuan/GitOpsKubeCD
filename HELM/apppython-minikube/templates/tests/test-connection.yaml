@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "apppython-minikube.fullname" . }}:{{ .values.servicePort}}']
-  restartPolicy: Never
+      args: ['{{ include "apppython-minikube.fullname" . }}:{{ .Values.servicePort }}']
+  restartPolicy: Never 
