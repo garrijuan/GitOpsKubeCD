@@ -7,14 +7,14 @@ metadata:
     argocd-image-updater.argoproj.io/myalias.helm.image-tag: image.tag
     argocd-image-updater.argoproj.io/myalias.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/myalias.update-strategy: latest
-  name: apppython
+  name: apppython-minikube
   namespace: argocd
 spec:
   syncPolicy:
     automated: {} # to syncronize automatically
   source:
   #desplegamos con HELM, hay que hacerlo obligatoriamente para usar Image Updater
-    path: HELM/apppython #apppython/k8s-test # the k8s source files 
+    path: HELM/apppython-minikube #apppython/k8s-test # the k8s source files 
     repoURL: https://github.com/garrijuan/GitOpsKubeCD.git
     targetRevision: main
   destination:
