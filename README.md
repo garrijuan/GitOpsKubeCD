@@ -108,7 +108,7 @@ helm get values apppython           # Values of the current realease
 ```
 
 you need a cluster running before use the previos command
-
+ 
 ```sh
  helm package apppython/ # pakage me chart in a .tgz
 ```
