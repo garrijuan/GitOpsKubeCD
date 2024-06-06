@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: my-app-container
-        image: garrijuan/test_api_python:020fea2
+        image: garrijuan/test_api_python:latest
         ports:
         - containerPort: 8080
   strategy:
