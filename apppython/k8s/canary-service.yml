@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-canary-service
+  namespace: staging
+spec:
+  selector:
+    app: my-app
+    rollouts-pod-template-hash: <canary-revision>
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
