@@ -208,3 +208,21 @@ In this repository, you can find a example of this flow:
 Ideally the developer is working on a microservice, he is making changes on a branch called in this case, DEV, during the working day he is committing changes against the report, these changes are automatically deployed to the pre environment within a k8s cluster and he can immediately see his changes reflected and deployed in this cluster.
 At the end of the working day, he considers that he must upload those changes to PROD, just do a merge from the dev branch to the main branch and he will automatically see his changes deployed to the cluster in the PROD environment.
 This is achieved through commit automation and automatic image generation in both environments every time the developer commits changes and automated deployment is achieved through argoCD, a tool deployed in the cluster that monitors the artifact repositories to see if there are new artifacts to deploy and also infrastructure repositories in case there are any changes in deployments or similar. 
+
+
+
+
+
+
+
+----------------------------------------
+
+rollout
+
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
+
+
+kubecctl apply -f rollout.yml
+
+ kubectl argo rollouts get rollout my-app-rollout -n staging
