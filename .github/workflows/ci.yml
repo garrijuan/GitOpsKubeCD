@@ -79,7 +79,7 @@ jobs:
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Tag Docker image
-       run: docker tag test_api_python ${{ secrets.DOCKER_USERNAME }}/test_api_python:latest
+        run: docker tag test_api_python ${{ secrets.DOCKER_USERNAME }}/test_api_python:latest
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/test_api_python:latest  
