@@ -5,22 +5,24 @@ metadata:
   namespace: staging
 spec:
   replicas: 3
-  revisionHistoryLimit: 2
+  #revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: my-app
+      app: my-app-rollout
   template:
     metadata:
       labels:
-        app: my-app
+        app: my-app-rollout
     spec:
       containers:
       - name: my-app-container
-        image: garrijuan/test_api_python:latest
+        image: garrijuan/test_api_python:f9c101f
         ports:
         - containerPort: 8080
   strategy:
     canary:
+      #canaryService: my-app-rollout
+      #stableService: apppython-minikube
       steps:
       - setWeight: 20
       - pause: {duration: 30s}
