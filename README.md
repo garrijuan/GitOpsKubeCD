@@ -226,3 +226,7 @@ kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/arg
 kubecctl apply -f rollout.yml
 
  kubectl argo rollouts get rollout my-app-rollout -n staging
+
+ kubectl argo rollouts dashboard
+
+ http://localhost:3100

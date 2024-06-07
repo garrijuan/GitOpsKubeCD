@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-canary-service
+  name: my-app-service
   namespace: staging
 spec:
   selector:
     app: my-app
-    rollouts-pod-template-hash: <canary-revision>
+    rollouts-pod-template-hash: <stable-revision> # Asegúrate de reemplazar esto con la etiqueta correcta
   ports:
   - protocol: TCP
     port: 80
