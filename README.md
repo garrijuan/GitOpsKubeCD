@@ -216,7 +216,7 @@ This is achieved through commit automation and automatic image generation in bot
 
 
 ----------------------------------------
-
+# Rollout
 rollout
 
 kubectl create namespace argo-rollouts
@@ -248,4 +248,4 @@ comprobar despligue
 k argo rollouts get rollout apppython-minikube-rollout -n default
 
 kubectl argo rollouts dashboard
-h<ttp://localhost:3100
+http://localhost:3100
