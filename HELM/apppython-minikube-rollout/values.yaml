@@ -9,7 +9,7 @@ restartPolicy: Always
 # Container image configuration
 image:
   repository: garrijuan/test_api_python
-  tag: 2566a4c
+  tag: 220b910
 
 # API port
 apiPort: 80
