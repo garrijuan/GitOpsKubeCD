@@ -1,31 +1,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: my-app-rollout
-  namespace: staging
+  name: apppython-minikube-rollout
 spec:
-  replicas: 3
-  #revisionHistoryLimit: 2
+  replicas: 5
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 20s}
+        - setWeight: 50
+        - pause: {duration: 20s}
+        - setWeight: 100
   selector:
     matchLabels:
-      app: my-app-rollout
+      app: apppython-minikube-rollout
   template:
     metadata:
       labels:
-        app: my-app-rollout
+        app: apppython-minikube-rollout
     spec:
+      restartPolicy: Always
       containers:
-      - name: my-app-container
-        image: garrijuan/test_api_python:f9c101f
-        ports:
-        - containerPort: 8080
-  strategy:
-    canary:
-      #canaryService: my-app-rollout
-      #stableService: apppython-minikube
-      steps:
-      - setWeight: 20
-      - pause: {duration: 30s}
-      - setWeight: 50
-      - pause: {duration: 30s}
-      - setWeight: 100
+        - name: apppython-minikube-rollout
+          image: garrijuan/test_api_python:2566a4c
+          env:
+            - name: API_PORT
+              value: 80
+          ports:
+            - containerPort: 80

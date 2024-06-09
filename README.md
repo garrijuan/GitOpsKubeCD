@@ -225,8 +225,27 @@ kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/arg
 
 kubecctl apply -f rollout.yml
 
- kubectl argo rollouts get rollout my-app-rollout -n staging
+kubectl argo rollouts get rollout my-app-rollout -n staging
 
- kubectl argo rollouts dashboard
+kubectl argo rollouts dashboard
 
  http://localhost:3100
+
+
+ steps:
+
+1. use chart appython-minikube-rollout
+    we replace deployment.yml to rollout.yml(it is same but add the deploymnet strategy)
+3. helm package appython-minikube-rollout/ 
+2. helm install appython-minikube-rollout ./appython-minikube-rollout
+4. cambio imagen en el values
+5. genero de nuevo el pkg -> helm package appython-minikube-rollout/ 
+6. helm install apppython ./apppython 
+7. helm upgrade apppython-minikube-rollout ./apppython-minikube-rollout-0.1.0.tgz
+
+comprobar despligue
+
+k argo rollouts get rollout apppython-minikube-rollout -n default
+
+kubectl argo rollouts dashboard
+h<ttp://localhost:3100
