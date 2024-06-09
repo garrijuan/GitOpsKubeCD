@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "apppython-minikube.fullname" . }}-test-connection"
+  labels:
+    {{- include "apppython-minikube.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "apppython-minikube.fullname" . }}:{{ .Values.servicePort }}']
+  restartPolicy: Never 

@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "apppython-minikube.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 10s}
+        - setWeight: 50
+        - pause: {duration: 10s}
+        - setWeight: 100
+  selector:
+    matchLabels:
+      app: {{ include "apppython-minikube.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "apppython-minikube.name" . }}
+    spec:
+      restartPolicy: {{ .Values.restartPolicy }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            - name: API_PORT
+              value: "{{ .Values.apiPort }}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
