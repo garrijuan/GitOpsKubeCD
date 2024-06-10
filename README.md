@@ -217,11 +217,11 @@ This is achieved through commit automation and automatic image generation in bot
 
 ----------------------------------------
 # ArgoCD Rollout
-rollout
-
+```sh
+#install argo rollout in cluster
 kubectl create namespace argo-rollouts
 kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
-
+```
 
  steps:
 
@@ -229,14 +229,17 @@ kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/arg
     we replace deployment.yml to rollout.yml(it is same but add the deploymnet strategy)
 3. helm package appython-minikube-rollout/ 
 2. helm install appython-minikube-rollout ./appython-minikube-rollout
-4. cambio imagen en el values
-5. genero de nuevo el pkg -> helm package appython-minikube-rollout
+4. change the image tag
+5. generate pkg again -> helm package appython-minikube-rollout
 6. helm install apppython ./apppython 
 7. helm upgrade apppython-minikube-rollout ./apppython-minikube-rollout-0.1.0.tgz
 
-comprobar despligue
-
-k argo rollouts get rollout apppython-minikube-rollout -n default
-
+check deployment
+```sh
+# Get the deployment strategy in a specify namespace
+kubectl argo rollouts get rollout apppython-minikube-rollout -n default
 kubectl argo rollouts dashboard
+# Access to argo release interface
 http://localhost:3100
+```
+![alt text](/documentation/rolloutStates.png "rollout")
