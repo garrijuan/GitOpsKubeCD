@@ -39,7 +39,7 @@ curl --location --request GET 'http://apppython'
 # When you are using an Ingress and you do not specify a port in your Http request, by default port 80 will be assumed for HTTP requests. This is because Ingress is usually configured to redirect HTTP requests to port 80 for internal Kubernetes services.
 ```
 
-## ArgoCD 
+## ArgoCD Imagen Updater
 ```sh
 make install_argocd # if the cluster havent ArgoCD
 kubectl port-forward svc/argocd-server -n argocd 8080:443 #expose argocd app in localhost port 8080
@@ -216,20 +216,11 @@ This is achieved through commit automation and automatic image generation in bot
 
 
 ----------------------------------------
-# Rollout
+# ArgoCD Rollout
 rollout
 
 kubectl create namespace argo-rollouts
 kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
-
-
-kubecctl apply -f rollout.yml
-
-kubectl argo rollouts get rollout my-app-rollout -n staging
-
-kubectl argo rollouts dashboard
-
- http://localhost:3100
 
 
  steps:
@@ -239,7 +230,7 @@ kubectl argo rollouts dashboard
 3. helm package appython-minikube-rollout/ 
 2. helm install appython-minikube-rollout ./appython-minikube-rollout
 4. cambio imagen en el values
-5. genero de nuevo el pkg -> helm package appython-minikube-rollout/ 
+5. genero de nuevo el pkg -> helm package appython-minikube-rollout
 6. helm install apppython ./apppython 
 7. helm upgrade apppython-minikube-rollout ./apppython-minikube-rollout-0.1.0.tgz
 

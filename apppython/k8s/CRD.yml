@@ -21,13 +21,3 @@ spec:
     server: 'https://kubernetes.default.svc' #Target cluster 
     namespace: staging #namespace where we want to deploy
   project: default
-  rolloutStrategy:
-    canary:
-      steps:
-      - setWeight: 10
-      - pause: { duration: 1m }
-      - setWeight: 30
-      - pause: { duration: 2m }
-      - setWeight: 50
-      - pause: { duration: 3m }
-      - setWeight: 100
