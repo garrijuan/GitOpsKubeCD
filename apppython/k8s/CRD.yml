@@ -3,7 +3,7 @@ kind: Application
 metadata:
 #muy importante para usar Image Updater
   annotations:
-    argocd-image-updater.argoproj.io/image-list: myalias=zuidui/api-gateway-dev
+    argocd-image-updater.argoproj.io/image-list: myalias=garrijuan/test_api_python
     argocd-image-updater.argoproj.io/myalias.helm.image-tag: image.tag
     argocd-image-updater.argoproj.io/myalias.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/myalias.update-strategy: latest
@@ -16,7 +16,7 @@ spec:
   #desplegamos con HELM, hay que hacerlo obligatoriamente para usar Image Updater
     path: HELM/apppython-minikube #apppython/k8s-test # the k8s source files 
     repoURL: https://github.com/garrijuan/GitOpsKubeCD.git
-    targetRevision: dev #main
+    targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc' #Target cluster 
     namespace: zuidui #namespace where we want to deploy
