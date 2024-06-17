@@ -8,14 +8,14 @@ restartPolicy: Always
 
 # Container image configuration
 image:
-  repository: garrijuan/test_api_python
-  tag: latest
+  repository: zuidui/api-gateway-dev
+  tag: 0.0.2:rc07
 
 # API port
-apiPort: 80
+apiPort: 8081
 
 # Container and service port
-containerPort: 80
+containerPort: 8081
 
 # Number of replicas for the Deployment
 replicaCount: 3
@@ -23,7 +23,7 @@ replicaCount: 3
 # Default values for my application  -- SERVICE
 
 servicePort: 8081
-targetPort: 80 # Container port
+targetPort: 8081 # Container port
 protocol: TCP
 serviceName: apppython-port # Service name
 serviceType: ClusterIP # Service type
@@ -31,7 +31,7 @@ serviceType: ClusterIP # Service type
 # Default values for my application -- INGRESS
 # Ingress host
 ingress:
-  host: apppython
+  host: tfm-local
   path: /api/?(.*)
 
 # Default values for my application - HPA
