@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "apppython-minikube.fullname" . }}
+  name: {{ .Values.appname }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     kubernetes.io/ingress.class: "nginx" 
@@ -14,7 +14,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: apppython-minikube
+                name: {{ .Values.appname }}
                 port:
                   number: 8081
 

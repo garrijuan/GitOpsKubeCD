@@ -1,5 +1,5 @@
 # Default values for my application -- DEPLOYMENT
-
+appname: api-gateway
 # Deployment strategy type
 strategyType: Recreate
 

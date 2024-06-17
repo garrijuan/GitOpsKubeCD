@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "apppython-minikube.fullname" . }}
+  name: {{ .Values.appname }}
 spec:
   strategy:
     type: {{ .Values.strategyType }}
   selector:
     matchLabels:
-      app: {{ include "apppython-minikube.name" . }}
+      app: {{ .Values.appname }}
   template:
     metadata:
       labels:
-        app: {{ include "apppython-minikube.name" . }}
+        app: {{ .Values.appname }}
     spec:
       restartPolicy: {{ .Values.restartPolicy }}
       containers:

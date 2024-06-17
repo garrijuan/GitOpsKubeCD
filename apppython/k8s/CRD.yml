@@ -19,5 +19,5 @@ spec:
     targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc' #Target cluster 
-    namespace: staging #namespace where we want to deploy
+    namespace: zuidui #namespace where we want to deploy
   project: default
