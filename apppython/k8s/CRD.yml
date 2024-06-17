@@ -7,7 +7,7 @@ metadata:
     argocd-image-updater.argoproj.io/myalias.helm.image-tag: image.tag
     argocd-image-updater.argoproj.io/myalias.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/myalias.update-strategy: latest
-  name: apppython-minikube
+  name: api-gateway
   namespace: argocd
 spec:
   syncPolicy:
