@@ -1,25 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.appname }}
+  name: {{ .Values.apiGateway.name }}
+  namespace: {{ .Values.namespace }}
 spec:
-  strategy:
-    type: {{ .Values.strategyType }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.appname }}
+      app: {{ .Values.apiGateway.name }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appname }}
+        app: {{ .Values.apiGateway.name }}
     spec:
-      restartPolicy: {{ .Values.restartPolicy }}
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: {{ .Values.apiGateway.name }}
+          image: "{{ .Values.apiGateway.image.repository }}:{{ .Values.apiGateway.image.tag }}"
           env:
-            - name: API_PORT
-              value: "{{ .Values.apiPort }}"
+            {{- toYaml .Values.apiGateway.envVars | nindent 12 }}
           ports:
-            - containerPort: {{ .Values.containerPort }}
-  replicas: {{ .Values.replicaCount }}
+            - containerPort: {{ .Values.apiGateway.containerPort }}

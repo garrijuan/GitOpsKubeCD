@@ -1,45 +1,60 @@
-# Default values for my application -- DEPLOYMENT
-appname: api-gateway
-# Deployment strategy type
-strategyType: Recreate
-
-# Restart policy
-restartPolicy: Always
-
-# Container image configuration
-image:
-  repository: zuidui/api-gateway-dev
-  tag: 0.0.2:rc07
-
-# API port
-apiPort: 8081
-
-# Container and service port
-containerPort: 8081
-
-# Number of replicas for the Deployment
-replicaCount: 3
-
-# Default values for my application  -- SERVICE
-
-servicePort: 8081
-targetPort: 8081 # Container port
-protocol: TCP
-serviceName: apppython-port # Service name
-serviceType: ClusterIP # Service type
-
-# Default values for my application -- INGRESS
-# Ingress host
+# Default values for zuidui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: zuidui
+name: api-gateway
+pathtest: tfm-local/api/health
+###############
+####ingress####
+###############
 ingress:
+  name: ingress-controller
   host: tfm-local
-  path: /api/?(.*)
+  pathType: Prefix 
+  portFrontend: 8080
+  portApiGateway: 8081
+###############
+##api-gateway##
+###############
+apiGateway:
+  name: api-gateway
+  replicaCount: 3 
+  image:
+    repository: zuidui/api-gateway-dev
+    tag: latest
 
-# Default values for my application - HPA
+  containerPort: 8081
 
-# Autoscaling configuration
-autoscaling:
-  enabled: true  # Enable autoscaling
-  minReplicas: 1  # Minimum number of replicas
-  maxReplicas: 10  # Maximum number of replicas
-  targetCPUUtilizationPercentage: 50  # Target CPU utilization percentage for autoscaling
-  targetMemoryUtilizationPercentage: 80  # Target memory utilization percentage for autoscaling
+  service:
+    type: ClusterIP
+    port: 8081
+
+  envVars:
+    - name: APP_PORT
+      value: "8081"
+    - name: APP_HOST
+      value: "0.0.0.0"
+    - name: APP_MODULE
+      value: "main:app"
+    - name: PYTHONPATH
+      value: "/app/src"
+    - name: DEBUG_PORT
+      value: "5678"
+    - name: CACHE_HOST
+      value: "redis"
+    - name: CACHE_PORT
+      value: "6379"
+    - name: CACHE_DB 
+      value: "0"
+    - name: TEAM_SERVICE_HOST
+      value: "team-service"
+    - name: TEAM_SERVICE_PORT
+      value: "8082"  
+    - name: FRONTEND_SERVICE_HOST
+      value: "frontend"
+    - name: FRONTEND_SERVICE_PORT
+      value: "8080"
+    - name: RATING_SERVICE_HOST
+      value: "rating-service"
+    - name: RATING_SERVICE_PORT
+      value: "8083"

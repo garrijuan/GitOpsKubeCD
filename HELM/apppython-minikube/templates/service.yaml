@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.appname }}
-  labels:
-    app: {{ .Values.appname }}
+  name: {{ .Values.apiGateway.name }}
+  namespace: {{ .Values.namespace }}
 spec:
   selector:
-    app: {{ .Values.appname }}
+    app: {{ .Values.apiGateway.name }}
   ports:
-    - port: {{ .Values.servicePort }}
-      targetPort: {{ .Values.targetPort }}
-      protocol: {{ .Values.protocol }}
-      name: {{ .Values.serviceName }}
-  type: {{ .Values.serviceType }}
+    - name: http
+      protocol: TCP
+      port: {{ .Values.apiGateway.service.port }}
+      targetPort: {{ .Values.apiGateway.service.port }}
+  type: {{ .Values.apiGateway.service.type }}
