@@ -15,7 +15,7 @@ spec:
   source:
   #desplegamos con HELM, hay que hacerlo obligatoriamente para usar Image Updater
     path: HELM/apppython-minikube #apppython/k8s-test # the k8s source files 
-    repoURL: https://github.com/zuidui/api-gateway #https://github.com/garrijuan/GitOpsKubeCD.git
+    repoURL: https://github.com/garrijuan/GitOpsKubeCD.git
     targetRevision: dev #main
   destination:
     server: 'https://kubernetes.default.svc' #Target cluster 
