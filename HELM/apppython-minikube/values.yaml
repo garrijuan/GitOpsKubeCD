@@ -8,8 +8,8 @@ restartPolicy: Always
 
 # Container image configuration
 image:
-  repository: garrijuan/test_api_python
-  tag: latest
+  repository: zuidui/api-gateway-dev #garrijuan/test_api_python
+  tag: 0.0.2:rc06 #latest
 
 # API port
 apiPort: 80
@@ -31,7 +31,7 @@ serviceType: ClusterIP # Service type
 # Default values for my application -- INGRESS
 # Ingress host
 ingress:
-  host: apppython
+  host: tfm-local
   path: /api/?(.*)
 
 # Default values for my application - HPA
